@@ -1,45 +1,60 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>StatusEnabled</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>StatusEnabled</title>
 
-		<!-- TODO : Common API -->
-		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
-		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
-		<script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/jquery.js"></script>
+        <!-- TODO : Common API -->
+        <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/Widget.js"></script>
+        <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/API/TVKeyValue.js"></script>
+        <script type="text/javascript" language="javascript" src="$MANAGER_WIDGET/Common/jquery.js"></script>
 
-		<!-- TODO : Javascript code -->
-		<script language="javascript" type="text/javascript" src="app/javascript/Main.js"></script>
+        <!-- TODO : Javascript code -->
+        <script language="javascript" type="text/javascript" src="app/javascript/Main.js"></script>
 
-		<!-- TODO : Style sheets code -->
-		<link rel="stylesheet" href="app/stylesheets/Main.css" type="text/css">
+        <!-- TODO : Style sheets code -->
+        <link rel="stylesheet" href="app/stylesheets/Main.css" type="text/css">
 
-		<!-- TODO: Plugins -->
+        <!-- TODO: Plugins -->
 
-	</head>
+    </head>
 
-	<body onload="Main.onLoad();" onunload="Main.onUnload();">
+    <body onload="Main.onLoad();" onunload="Main.onUnload();">
 
-		<!-- Dummy anchor as focus for key events -->
-		<a href="javascript:void(0);" id="anchor" onkeydown="Main.keyDown();"></a>
+        <!-- Dummy anchor as focus for key events -->
+        <a href="javascript:void(0);" id="anchor" onkeydown="Main.keyDown();"></a>
 
-		<!-- TODO: your code here -->
-		<font color="white" size="1">
-		<p>Status Network</p>
-		<HR/>
-		<table>
-		    <tr>
-		    <td valign="top">
-		    <table id="TableItems" width="400" cellspacing="1" cellpadding="2" align="center" border="1" bgcolor="#90EE90" style="font-size:xx-small">
-		        <tbody>
-		            <tr>
-		                <td width="100%">Item</td>
-		            </tr>
-		        </tbody>
-		    </table>
-		    </td>
-		    </tr>
-		</table>
-	</body>
+        <!-- TODO: your code here -->
+        <p>Status Network</p>
+        <hr/>
+
+        <header>
+            <label class="section-label">Category Name</label>
+            <label class="section-state">State</label>
+        </header>
+        <section id="section-template" style="di_splay:none;">
+            <section>
+                <span class="section-label">Category Name</span>
+                <span class="section-state">State</span>
+            </section>
+            <!--<a href="#" class="section-show-detail">show detail</a>-->
+            <!--<a href="#" class="section-hide-detail" style="display:none;">hide detail</a>-->
+            <details class="section-details" style="di_splay:none;">
+                <!-- details go here -->
+                <header>
+                    <label class="line-item-name">Name</label>
+                    <label class="line-item-state">State</label>
+                </header>
+                <section id="detail-template">
+                    <span class="line-item-name">Name</span>
+                    <span class="line-item-state">State</span>
+                </section>
+            </details>
+        </section>
+
+
+        <div id="content">
+            <!-- sections go here -->
+        </div>
+    </body>
 </html>
