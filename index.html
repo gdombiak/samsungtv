@@ -25,6 +25,7 @@
         <a href="javascript:void(0);" id="anchor" onkeydown="Main.keyDown();"></a>
 
         <!-- TODO: your code here -->
+        <font color="white" size="1">
         <p>Status Network</p>
         <hr/>
 
@@ -32,14 +33,17 @@
             <label class="section-label">Category Name</label>
             <label class="section-state">State</label>
         </header>
-        <section id="section-template" style="di_splay:none;">
+        <section id="section-template" style="display:none;">
             <section>
                 <span class="section-label">Category Name</span>
-                <span class="section-state">State</span>
+                <!--  <span class="section-state">State</span> -->
+				<canvas class="section-canvas" width="50" height="50">
+				    This text is displayed if your browser does NOT support HTML5 canvas.
+				</canvas>
             </section>
             <!--<a href="#" class="section-show-detail">show detail</a>-->
             <!--<a href="#" class="section-hide-detail" style="display:none;">hide detail</a>-->
-            <details class="section-details" style="di_splay:none;">
+            <details class="section-details" style="display:none;">
                 <!-- details go here -->
                 <header>
                     <label class="line-item-name">Name</label>

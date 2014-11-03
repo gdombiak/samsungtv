@@ -17,7 +17,7 @@ Main.onLoad = function()
 
 	// Fetch data
 	this.fetchStatus();
-
+	
 };
 
 Main.onUnload = function()
@@ -33,7 +33,7 @@ Main.enableKeys = function()
 Main.fetchStatus = function()
 {
 	// Delete existing rows
-	$('#TableItems tbody').children( 'tr:not(:first)' ).remove();
+	$('#content').children( 'section' ).remove();
 	// Fetch new status and add rows for each element
 	$.getJSON('http://192.168.252.10/reader/v1/status/current', function(data) {
 		$.each(data, function( index, value ) {
@@ -49,24 +49,23 @@ Main.fetchStatus = function()
 			  } else {
 				  categoryName = categoryName.concat(category);
 			  }
-			  var color ="#FFFFFF";
+
+			  var newSection = $( "#section-template" ).clone();
+			  newSection.removeAttr("id");
+			  newSection.css("display","inherit");
+			  newSection.find(".section-label").text(categoryName);
+
+			  var stateCanvas = newSection.find(".section-canvas")[0].getContext('2d');
 			  if (status == 'GREEN') {
-				  color = "#31B404";
+				  stateCanvas.fillStyle = "rgb(28,250,57)";
 			  } else if (status == 'RED') {
-				  color = "#B40404";
+				  stateCanvas.fillStyle = "rgb(255,0,0)";
 			  } else if (status == 'YELLOW') {
-				  color = "#FFFF00";
+				  stateCanvas.fillStyle = "rgb(239,255,0)";
 			  }
+			  stateCanvas.fillRect(30, 30, 50, 50);
 			  
-			  var table = document.getElementById("TableItems");
-			  var row = table.insertRow(1);
-			  row.bgColor="#FFFFFF";
-			  var td1 = row.insertCell(0);
-			  td1.style.color="#170B3B";
-			  td1.innerHTML = categoryName;
-			  td1 = row.insertCell(1);
-			  td1.style.color = color;
-			  td1.innerHTML = status;
+			  var div = $( "#content" ).append(newSection);
 			});
 	});
 };
