@@ -12,9 +12,6 @@ Main.onLoad = function()
 	this.enableKeys();
 	widgetAPI.sendReadyEvent();
 	
-	// Tell jQuery to not cache things
-	$.ajaxSetup({ cache: false });
-
 	// Fetch data
 	this.fetchStatus();
 	
@@ -33,40 +30,54 @@ Main.enableKeys = function()
 Main.fetchStatus = function()
 {
 	// Delete existing rows
-	$('#content').children( 'section' ).remove();
+//	$('#content').children( 'section' ).remove();
+	$('#content').empty();
+
 	// Fetch new status and add rows for each element
-	$.getJSON('http://192.168.252.10/reader/v1/status/current', function(data) {
-		$.each(data, function( index, value ) {
-			  var category = value.category;
-			  var status = value.status;
-			  var categoryName = "Unknown: ";
-			  if (category == 1) {
-				  categoryName = "Home Security";
-			  } else if (category == 2) {
-				  categoryName = "Car Maintenance";
-			  } else if (category == 3) {
-				  categoryName = "Budget";
-			  } else {
-				  categoryName = categoryName.concat(category);
-			  }
+	$.ajax({
+		dataType: "json",
+		cache: false,
+		timeout: 3000,
+		url: "http://192.168.252.10/reader/v1/status/current",
+		success: function(data) {
+			$.each(data, function( index, value ) {
+				  var category = value.category;
+				  var status = value.status;
+				  var categoryName = "Unknown: ";
+				  if (category == 1) {
+					  categoryName = "Home Security";
+				  } else if (category == 2) {
+					  categoryName = "Car Maintenance";
+				  } else if (category == 3) {
+					  categoryName = "Budget";
+				  } else {
+					  categoryName = categoryName.concat(category);
+				  }
 
-			  var newSection = $( "#section-template" ).clone();
-			  newSection.removeAttr("id");
-			  newSection.css("display","inherit");
-			  newSection.find(".section-label").text(categoryName);
+				  var newSection = $( "#section-template" ).clone();
+				  newSection.removeAttr("id");
+				  newSection.css("display","inherit");
+				  newSection.find(".section-label").text(categoryName);
 
-			  var stateCanvas = newSection.find(".section-canvas")[0].getContext('2d');
-			  if (status == 'GREEN') {
-				  stateCanvas.fillStyle = "rgb(28,250,57)";
-			  } else if (status == 'RED') {
-				  stateCanvas.fillStyle = "rgb(255,0,0)";
-			  } else if (status == 'YELLOW') {
-				  stateCanvas.fillStyle = "rgb(239,255,0)";
-			  }
-			  stateCanvas.fillRect(30, 30, 50, 50);
-			  
-			  var div = $( "#content" ).append(newSection);
-			});
+				  var stateCanvas = newSection.find(".section-canvas")[0].getContext('2d');
+				  if (status == 'GREEN') {
+					  stateCanvas.fillStyle = "rgb(28,250,57)";
+				  } else if (status == 'RED') {
+					  stateCanvas.fillStyle = "rgb(255,0,0)";
+				  } else if (status == 'YELLOW') {
+					  stateCanvas.fillStyle = "rgb(239,255,0)";
+				  }
+				  stateCanvas.fillRect(30, 30, 50, 50);
+				  
+				  var div = $( "#content" ).append(newSection);
+				});},
+		error: function(jqXHR, textStatus, errorThrown) {
+			if (textStatus == "timeout") {
+				$('#content').text("textStatus: " + textStatus + ", errorThrown: " + errorThrown);
+			} else {
+				$('#content').text("Error code: " + jqXHR.status + ", Error text: " + jqXHR.statusText + ", textStatus: " + textStatus + ", errorThrown: " + errorThrown);
+			}
+		}
 	});
 };
 

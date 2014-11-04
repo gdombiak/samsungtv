@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <widget xmlns="http://www.samsung.com/">  
   <cpname itemtype="string"/>  
   <cplogo itemtype="string"/>  
@@ -20,7 +19,7 @@
   <videomute itemtype="boolean">n</videomute>  
   <dcont itemtype="boolean">y</dcont>  
   <widgetname itemtype="string">Status Update</widgetname>  
-  <description itemtype="string"/>  
+  <description itemtype="string">Get updates</description>  
   <width itemtype="string">960</width>  
   <height itemtype="string">540</height>  
   <author itemtype="group"> 
